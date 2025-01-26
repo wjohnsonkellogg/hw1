@@ -112,13 +112,122 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
+Drop table if exists movie;
+drop table if exists actor;
+drop table if exists character;
 
 -- Create new tables, according to your domain model
--- TODO!
+
+create table movie(
+    id INTEGER primary key,
+    title TEXT,
+    year_released integer,
+    mraa_rating text,
+    studio TEXT
+);
+
+create table actor(
+    id integer primary key,
+    name TEXT
+);
+
+create table character(
+    id INTEGER primary key, 
+    name TEXT,
+    movie_id integer,
+    actor_id integer
+);
 
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+
+insert into movie
+values (1, "Batman Begins", 2005, "PG-13", "Warner Bros.");
+
+insert into movie
+values (2, "The Dark Knight", 2008, "PG-13", "Warner Bros.");
+
+insert into movie
+values (3, "The Dark Knight Rises", 2012, "PG-13", "Warner Bros.");
+
+insert into actor
+values (1, "Christian Bale");
+
+insert into actor 
+values (2, "Michael Caine");
+
+insert into actor
+values (3, "Liam Neeson");
+
+insert into actor
+values (4, "Katie Holmes");
+
+insert into actor
+values (5, "Gary Oldman");
+
+insert into actor
+values (6, "Heath Ledger");
+
+insert into actor
+values (7, "Aaron Eckhart");
+
+insert into actor
+values (8, "Maggie Gyllenhaal");
+
+insert into actor
+values (9, "Tom Hardy");
+
+insert into actor
+values (10, "Joseph Gordon-Leavitt");
+
+insert into actor
+values (11, "Anne Hathaway");
+
+insert into character
+values (1, "Bruce Wayne", 1, 1);
+
+insert into character
+values (2, "Alfred", 1, 2);
+
+insert into character
+values (3, "Ra's Al Ghul", 1, 3);
+
+insert into character
+values (4, "Rachel Dawes", 1, 4);
+
+insert into character
+values (5, "Commissioner Gordon", 1, 5);
+
+insert into character
+values (6, "Bruce Wayne", 2, 1);
+
+insert into character
+values (7, "Joker", 2, 6);
+
+insert into character
+values (8, "Harvey Dent", 2, 7);
+
+insert into character
+values (9, "Alfred", 2, 2);
+
+insert into character
+values (10, "Rachel Dawes", 2, 8);
+
+insert into character
+values (11, "Bruce Wayne", 3, 1);
+
+insert into character
+values (12, "Commissioner Gordon", 3, 5);
+
+insert into character
+values (13, "Bane", 3, 9);
+
+insert into character
+values (14, "John Blake", 3, 10);
+
+insert into character
+values (15, "Selina Kyle", 3, 11);
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -127,6 +236,7 @@
 
 -- The SQL statement for the movies output
 -- TODO!
+select * from movie;
 
 -- Prints a header for the cast output
 .print ""
@@ -134,6 +244,9 @@
 .print "========"
 .print ""
 
-
 -- The SQL statement for the cast output
 -- TODO!
+select character.id, movie.title, actor.name, character.name
+from character
+inner join movie on character.movie_id = movie.id
+inner join actor on character.actor_id = actor.id;
